@@ -81,4 +81,12 @@ public class UserChecks {
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
+
+    public void assertErrorLoginUserWithWrongData(ValidatableResponse response) {
+        ValidatableResponse loginWithWrongData = response
+                .assertThat()
+                .statusCode(HttpURLConnection.HTTP_UNAUTHORIZED)
+                .body("success", equalTo(false))
+                .body("message", equalTo("email or password are incorrect"));
+    }
 }

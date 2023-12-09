@@ -12,7 +12,7 @@ public class UserChangeDataTests {
     private String accessToken;
 
     @Before
-    public void setUpUser() {
+    public void setUser() {
         client.createUser(user);
 
         var authdata = AuthData.from(user);
