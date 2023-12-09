@@ -15,16 +15,45 @@ public class CreateUserTests {
     public void createUserTest() {
         var user = UserGenerator.generateRandomUser();
         ValidatableResponse response = client.createUser(user);
-        check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
+        accessToken = check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
+    }
 
-        var authdata = AuthData.from(user);
-        ValidatableResponse validatableResponse = client.loginUser(authdata);
-        accessToken = check.accertUserLoginSuccessfully(validatableResponse, user.getEmail(), user.getName());
+    @Test
+    public void errorCreateUserBecauseAlreadyCreate() {
+        var user = UserGenerator.generateRandomUser();
+        ValidatableResponse response = client.createUser(user);
+        accessToken = check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
+        ValidatableResponse createAgain = client.createUser(user);
+        check.assertErrorCreateUserBecauseAlreadyCreate(createAgain);
+
+    }
+
+    @Test
+    public void errorCreateWithoutEmail() {
+        var user = UserGenerator.generateRandomWithoutEmail();
+        ValidatableResponse createWithoutEmail = client.createUser(user);
+        check.assertErrorCreateUserWithoutRequiredField(createWithoutEmail);
+    }
+
+    @Test
+    public void errorCreateWithoutName() {
+        var user = UserGenerator.generateRandomWithoutName();
+        ValidatableResponse createWithoutName = client.createUser(user);
+        check.assertErrorCreateUserWithoutRequiredField(createWithoutName);
+    }
+
+    @Test
+    public void errorCreateWithoutPassword() {
+        var user = UserGenerator.generateRandomWithoutPassword();
+        ValidatableResponse createWithoutPassword = client.createUser(user);
+        check.assertErrorCreateUserWithoutRequiredField(createWithoutPassword);
     }
 
     @After
     public void deleteUser() {
-        ValidatableResponse deleteUser = client.delete(accessToken);
-        check.assertUserDeleteSuccsessfully(deleteUser);
+        if(accessToken != null) {
+            ValidatableResponse deleteUser = client.delete(accessToken);
+            check.assertUserDeleteSuccsessfully(deleteUser);
+        }
     }
 }

@@ -14,8 +14,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .body(user)
                 .when()
                 .post(USER_PATH_CREATE)
-                .then().log().all()
-                ;
+                .then().log().all();
     }
 
     @Step("Login user")
@@ -24,8 +23,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .body(authdata)
                 .when()
                 .post(USER_PATH_LOGIN)
-                .then().log().all()
-                ;
+                .then().log().all();
     }
 
     @Step("Change User Data")
@@ -34,8 +32,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .body(changeData)
                 .when()
                 .patch(USER_PATH_DATA)
-                .then().log().all()
-                ;
+                .then().log().all();
     }
 
     @Step("Delete Test Data")
@@ -43,7 +40,6 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
         return specAuth(accessToken)
                 .when()
                 .delete(USER_PATH_DATA)
-                .then().log().all()
-                ;
+                .then().log().all();
     }
 }

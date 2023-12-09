@@ -10,8 +10,9 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class UserChecks {
 
-    public void assertUserCreateSuccessfully(ValidatableResponse response, String email, String name) {
-        ValidatableResponse created = response
+    @Step("Creare user and Getting accessToken")
+    public String assertUserCreateSuccessfully(ValidatableResponse response, String email, String name) {
+        String accessToken = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
@@ -19,7 +20,10 @@ public class UserChecks {
                 .body("user.email", equalTo(email))
                 .body("user.name", equalTo(name))
                 .body("accessToken", notNullValue())
-                .body("refreshToken", notNullValue());
+                .body("refreshToken", notNullValue())
+                .extract()
+                .path("accessToken");
+        return accessToken;
     }
 
     @Step("Assert Login and Getting accessToken")
@@ -59,7 +63,22 @@ public class UserChecks {
     public void assertUserDeleteSuccsessfully(ValidatableResponse response) {
         ValidatableResponse deleteUser = response
                 .assertThat()
-                .statusCode(HttpURLConnection.HTTP_ACCEPTED)
-                ;
+                .statusCode(HttpURLConnection.HTTP_ACCEPTED);
+    }
+
+    public void assertErrorCreateUserBecauseAlreadyCreate(ValidatableResponse response) {
+        ValidatableResponse createAgain = response
+                .assertThat()
+                .statusCode(HttpURLConnection.HTTP_FORBIDDEN)
+                .body("success", equalTo(false))
+                .body("message", equalTo("User already exists"));
+    }
+
+    public void assertErrorCreateUserWithoutRequiredField(ValidatableResponse response) {
+        ValidatableResponse createWithoutRequiredField = response
+                .assertThat()
+                .statusCode(HttpURLConnection.HTTP_FORBIDDEN)
+                .body("success", equalTo(false))
+                .body("message", equalTo("Email, password and name are required fields"));
     }
 }
