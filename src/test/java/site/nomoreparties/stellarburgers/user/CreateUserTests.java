@@ -14,17 +14,17 @@ public class CreateUserTests {
     @Test
     public void createUserTest() {
         var user = UserGenerator.generateRandomUser();
-        ValidatableResponse response = UserClient.createUser(user);
+        ValidatableResponse response = client.createUser(user);
         check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
 
         var authdata = AuthData.from(user);
-        ValidatableResponse validatableResponse = UserClient.loginUser(authdata);
+        ValidatableResponse validatableResponse = client.loginUser(authdata);
         accessToken = check.accertUserLoginSuccessfully(validatableResponse, user.getEmail(), user.getName());
     }
 
     @After
     public void deleteUser() {
-        ValidatableResponse deleteUser = UserClient.delete(accessToken);
+        ValidatableResponse deleteUser = client.delete(accessToken);
         check.assertUserDeleteSuccsessfully(deleteUser);
     }
 }

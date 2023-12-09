@@ -16,13 +16,13 @@ public class LoginUserTests {
         UserClient.createUser(user);
 
         var authdata = AuthData.from(user);
-        ValidatableResponse login = UserClient.loginUser(authdata);
+        ValidatableResponse login = client.loginUser(authdata);
         accessToken = check.accertUserLoginSuccessfully(login, user.getEmail(), user.getName());
     }
 
     @After
     public void deleteUser() {
-        ValidatableResponse deleteUser = UserClient.delete(accessToken);
+        ValidatableResponse deleteUser = client.delete(accessToken);
         check.assertUserDeleteSuccsessfully(deleteUser);
     }
 }

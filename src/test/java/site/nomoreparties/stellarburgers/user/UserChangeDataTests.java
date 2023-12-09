@@ -13,10 +13,10 @@ public class UserChangeDataTests {
 
     @Before
     public void setUpUser() {
-        ValidatableResponse create = UserClient.createUser(user);
+        client.createUser(user);
 
         var authdata = AuthData.from(user);
-        ValidatableResponse login = UserClient.loginUser(authdata);
+        ValidatableResponse login = client.loginUser(authdata);
 
         accessToken = check.accertUserLoginSuccessfully(login, user.getEmail(), user.getName());
     }
@@ -24,14 +24,14 @@ public class UserChangeDataTests {
     @Test
     public void changeEmailTest() {
         ChangeData changeData = ChangeData.changeEmail(user);
-        ValidatableResponse changeUserEmail = UserClient.changeUserData(changeData, accessToken);
+        ValidatableResponse changeUserEmail = client.changeUserData(changeData, accessToken);
         check.assertChangeEmailSuccessfully(changeUserEmail, changeData.getEmail());
     }
 
     @Test
     public void changeNameTest() {
         ChangeData changeData = ChangeData.changeName(user);
-        ValidatableResponse changeUserName = UserClient.changeUserData(changeData, accessToken);
+        ValidatableResponse changeUserName = client.changeUserData(changeData, accessToken);
         check.assertChangeNameSuccessfully(changeUserName, changeData.getName());
     }
 
