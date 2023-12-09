@@ -12,6 +12,15 @@ public class Client {
     public static RequestSpecification spec() {
         return given().log().all()
                 .contentType(ContentType.JSON)
-                .baseUri(BASE_URI);
+                .baseUri(BASE_URI)
+        ;
+    }
+
+    public static RequestSpecification specAuth(String accessToken) {
+        return given().log().all()
+                .contentType(ContentType.JSON)
+                .header("authorization", accessToken)
+                .baseUri(BASE_URI)
+        ;
     }
 }

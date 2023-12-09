@@ -13,19 +13,12 @@ public class CreateUserTests {
 
     @Test
     public void createUserTest() {
-        //создание пользователя
         var user = UserGenerator.generateRandomUser();
         ValidatableResponse response = client.createUser(user);
-        check.assertUserCreateSuccessfuly(response, user.getEmail(), user.getName());
+        check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
 
-        //логин пользователя
         var authdata = AuthData.from(user);
         ValidatableResponse validatableResponse = client.loginUser(authdata);
-        check.accertUserLoginSuccessfuly(validatableResponse, user.getEmail(), user.getName());
+        check.accertUserLoginSuccessfully(validatableResponse, user.getEmail(), user.getName());
     }
-
-    //@After
-    //public void deleteUser() {
-    //    client.delete();
-    //}
 }
