@@ -15,4 +15,23 @@ public class OrderChecks {
                 .body("success", equalTo(true));
     }
 
+    public void createOrderWithoutIngredients(ValidatableResponse response) {
+        response.assertThat()
+                .statusCode(HttpURLConnection.HTTP_BAD_REQUEST)
+                .and()
+                .body("message", equalTo("Ingredient ids must be provided"));
+    }
+
+    public void createOrderWithWrongIngredient(ValidatableResponse response) {
+        response.assertThat()
+                .statusCode(HttpURLConnection.HTTP_INTERNAL_ERROR);
+    }
+
+    public void createOrderWithoutAuth(ValidatableResponse response) {
+        response.assertThat()
+                .statusCode(HttpURLConnection.HTTP_OK)
+                .and()
+                .body("success", equalTo(true))
+                .body("order.number", notNullValue());
+    }
 }

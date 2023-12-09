@@ -1,9 +1,8 @@
 package site.nomoreparties.stellarburgers.order;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class OrderGenerate {
+public class OrderGenerator {
 
     public static Order orderWithIngredient() {
         return new Order(List.of(IngredientsListGenerator.getRandomIngredient()));
@@ -13,7 +12,7 @@ public class OrderGenerate {
         return new Order(List.of());
     }
 
-    public static Order orderWithWrongIngredients() {
+    public static Order orderWithWrongIngredient() {
         return new Order(List.of(IngredientsListGenerator.getWrongIngredient()));
     }
 }

@@ -25,9 +25,30 @@ public class CreateOrderTests {
 
     @Test
     public void createOrderWithIngredient() {
-        var order = OrderGenerate.orderWithIngredient();
+        var order = OrderGenerator.orderWithIngredient();
         ValidatableResponse orderWithIngredient = client.createOrderWithAuth(order, accessToken);
         checks.createOrderSuccessfully(orderWithIngredient);
+    }
+
+    @Test
+    public void errorCreateOrderWithoutIngredients() {
+        var order = OrderGenerator.orderWithoutIngredients();
+        ValidatableResponse orderWithoutIngredients = client.createOrderWithAuth(order, accessToken);
+        checks.createOrderWithoutIngredients(orderWithoutIngredients);
+    }
+
+    @Test
+    public void errorCreateOrderWithWrongIngredient() {
+        var order = OrderGenerator.orderWithWrongIngredient();
+        ValidatableResponse orderWithWrongIngredient = client.createOrderWithAuth(order, accessToken);
+        checks.createOrderWithWrongIngredient(orderWithWrongIngredient);
+    }
+
+    @Test
+    public void createOrderWithoutAuth() {
+        var order = OrderGenerator.orderWithIngredient();
+        ValidatableResponse orderWithOutAuth = client.createOrderWithoutAuth(order);
+        checks.createOrderWithoutAuth(orderWithOutAuth);
     }
 
     @After

@@ -23,6 +23,6 @@ public class IngredientsListGenerator {
 
     public static String getWrongIngredient() {
         var random = new Random();
-        return getRandomIngredient() + random.nextInt(6);
+        return getRandomIngredient() + random.nextInt(12);
     }
 }
