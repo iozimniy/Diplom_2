@@ -25,4 +25,19 @@ public class OrderClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
+    @Step("Get user's orders with auth")
+    public static ValidatableResponse getUsersOrdersWithAuth(String accessToken) {
+        return specAuth(accessToken)
+                .when()
+                .get(ORDER)
+                .then().log().all();
+    }
+
+    @Step("Get user's orders without auth")
+    public static ValidatableResponse getUsersOrdersWithoutAuth() {
+        return spec()
+                .when()
+                .get(ORDER)
+                .then().log().all();
+    }
 }

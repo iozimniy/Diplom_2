@@ -34,4 +34,19 @@ public class OrderChecks {
                 .body("success", equalTo(true))
                 .body("order.number", notNullValue());
     }
+
+    public void getUsersOrdersSuccessfully(ValidatableResponse response) {
+        response.assertThat()
+                .statusCode(HttpURLConnection.HTTP_OK)
+                .and()
+                .body("success", equalTo(true));
+    }
+
+    public void getUsersOrdersWithoutAuth(ValidatableResponse response) {
+        response.assertThat()
+                .statusCode(HttpURLConnection.HTTP_UNAUTHORIZED)
+                .and()
+                .body("success", equalTo(false))
+                .body("message", equalTo("You should be authorised"));
+    }
 }
