@@ -52,11 +52,21 @@ public class UserChecks {
     }
 
     public void assertChangeNameSuccessfully(ValidatableResponse response, String name) {
-        ValidatableResponse changeEmail = response
+        ValidatableResponse changeName = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
                 .body("success", equalTo(true))
+                .body("user.name", equalTo(name));
+    }
+
+    public void assertChangeEmailAndNameSuccessfuly(ValidatableResponse response, String email, String name) {
+        ValidatableResponse changeEmailAndName = response
+                .assertThat()
+                .statusCode(HttpURLConnection.HTTP_OK)
+                .and()
+                .body("success", equalTo(true))
+                .body("user.email", equalTo(email))
                 .body("user.name", equalTo(name));
     }
 

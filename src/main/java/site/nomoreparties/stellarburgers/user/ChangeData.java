@@ -21,6 +21,10 @@ public class ChangeData {
         return new ChangeData(DataGenerator.generateRandomName(), user.getEmail());
     }
 
+    public static ChangeData changeEmailAndName() {
+        return new ChangeData(DataGenerator.generateRandomName(), DataGenerator.generateRandomEmail());
+    }
+
     public String getEmail() {
         return email;
     }

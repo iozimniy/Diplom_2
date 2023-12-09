@@ -35,6 +35,13 @@ public class UserChangeDataTests {
         check.assertChangeNameSuccessfully(changeUserName, changeData.getName());
     }
 
+    @Test
+    public void changeEmailAndName() {
+        ChangeData changeData = ChangeData.changeEmailAndName();
+        ValidatableResponse changeUserEmailAndName = client.changeUserData(changeData, accessToken);
+        check.assertChangeEmailAndNameSuccessfuly(changeUserEmailAndName, changeData.getEmail(), changeData.getName());
+    }
+
     @After
     public void deleteUser() {
         ValidatableResponse deleteUser = UserClient.delete(accessToken);
