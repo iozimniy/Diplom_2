@@ -10,12 +10,11 @@ public class CreateOrderTests {
 
     private final OrderClient client = new OrderClient();
     private final OrderChecks checks = new OrderChecks();
-    private User user;
     private String accessToken;
 
     @Before
     public void setAndAuthUser() {
-        user = UserGenerator.generateRandomUser();
+        User user = UserGenerator.generateRandomUser();
         ValidatableResponse response = UserClient.createUser(user);
         accessToken = UserChecks.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
 
@@ -26,28 +25,28 @@ public class CreateOrderTests {
     @Test
     public void createOrderWithIngredient() {
         var order = OrderGenerator.orderWithIngredient();
-        ValidatableResponse orderWithIngredient = client.createOrderWithAuth(order, accessToken);
+        ValidatableResponse orderWithIngredient = OrderClient.createOrderWithAuth(order, accessToken);
         checks.createOrderSuccessfully(orderWithIngredient);
     }
 
     @Test
     public void errorCreateOrderWithoutIngredients() {
         var order = OrderGenerator.orderWithoutIngredients();
-        ValidatableResponse orderWithoutIngredients = client.createOrderWithAuth(order, accessToken);
+        ValidatableResponse orderWithoutIngredients = OrderClient.createOrderWithAuth(order, accessToken);
         checks.createOrderWithoutIngredients(orderWithoutIngredients);
     }
 
     @Test
     public void errorCreateOrderWithWrongIngredient() {
         var order = OrderGenerator.orderWithWrongIngredient();
-        ValidatableResponse orderWithWrongIngredient = client.createOrderWithAuth(order, accessToken);
+        ValidatableResponse orderWithWrongIngredient = OrderClient.createOrderWithAuth(order, accessToken);
         checks.createOrderWithWrongIngredient(orderWithWrongIngredient);
     }
 
     @Test
     public void createOrderWithoutAuth() {
         var order = OrderGenerator.orderWithIngredient();
-        ValidatableResponse orderWithOutAuth = client.createOrderWithoutAuth(order);
+        ValidatableResponse orderWithOutAuth = OrderClient.createOrderWithoutAuth(order);
         checks.createOrderWithoutAuth(orderWithOutAuth);
     }
 

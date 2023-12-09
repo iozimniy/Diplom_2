@@ -42,9 +42,13 @@ public class UserChecks {
         return accessToken;
     }
 
+    public static void assertUserDeleteSuccsessfully(ValidatableResponse response) {
+        response.assertThat()
+                .statusCode(HttpURLConnection.HTTP_ACCEPTED);
+    }
+
     public void assertChangeEmailSuccessfully(ValidatableResponse response, String email) {
-        ValidatableResponse changeEmail = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
                 .body("success", equalTo(true))
@@ -52,8 +56,7 @@ public class UserChecks {
     }
 
     public void assertChangeNameSuccessfully(ValidatableResponse response, String name) {
-        ValidatableResponse changeName = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
                 .body("success", equalTo(true))
@@ -61,8 +64,7 @@ public class UserChecks {
     }
 
     public void assertChangeEmailAndNameSuccessfuly(ValidatableResponse response, String email, String name) {
-        ValidatableResponse changeEmailAndName = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
                 .body("success", equalTo(true))
@@ -70,15 +72,8 @@ public class UserChecks {
                 .body("user.name", equalTo(name));
     }
 
-    public static void assertUserDeleteSuccsessfully(ValidatableResponse response) {
-        ValidatableResponse deleteUser = response
-                .assertThat()
-                .statusCode(HttpURLConnection.HTTP_ACCEPTED);
-    }
-
     public void assertErrorCreateUserBecauseAlreadyCreate(ValidatableResponse response) {
-        ValidatableResponse createAgain = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_FORBIDDEN)
                 .and()
                 .body("success", equalTo(false))
@@ -86,8 +81,7 @@ public class UserChecks {
     }
 
     public void assertErrorCreateUserWithoutRequiredField(ValidatableResponse response) {
-        ValidatableResponse createWithoutRequiredField = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_FORBIDDEN)
                 .and()
                 .body("success", equalTo(false))
@@ -95,8 +89,7 @@ public class UserChecks {
     }
 
     public void assertErrorLoginUserWithWrongData(ValidatableResponse response) {
-        ValidatableResponse loginWithWrongData = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_UNAUTHORIZED)
                 .and()
                 .body("success", equalTo(false))
@@ -104,8 +97,7 @@ public class UserChecks {
     }
 
     public void assertErrorChangeDataWithoutAuth(ValidatableResponse response) {
-        ValidatableResponse changeDataWithoutAuth = response
-                .assertThat()
+        response.assertThat()
                 .statusCode(HttpURLConnection.HTTP_UNAUTHORIZED)
                 .and()
                 .body("success", equalTo(false))

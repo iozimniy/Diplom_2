@@ -1,9 +1,6 @@
 package site.nomoreparties.stellarburgers.user;
 
 public class UserGenerator {
-    public static User generateUser() {
-        return new User("govard@arkhamworld.com", "YAYA#yogsotot", "Govard F.L.");
-    }
 
     public static User generateRandomUser() {
         return new User(DataGenerator.generateRandomEmail(), DataGenerator.generateRandomPassword(), DataGenerator.generateRandomName());

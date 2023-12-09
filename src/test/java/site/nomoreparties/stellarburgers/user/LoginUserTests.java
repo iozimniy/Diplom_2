@@ -8,8 +8,8 @@ import org.junit.Test;
 public class LoginUserTests {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
-    private User user;
     String accessToken;
+    private User user;
 
     @Before
     public void setUser() {
@@ -20,36 +20,36 @@ public class LoginUserTests {
     @Test
     public void loginUserTest() {
         var authdata = AuthData.from(user);
-        ValidatableResponse login = client.loginUser(authdata);
-        accessToken = check.accertUserLoginSuccessfully(login, user.getEmail(), user.getName());
+        ValidatableResponse login = UserClient.loginUser(authdata);
+        accessToken = UserChecks.accertUserLoginSuccessfully(login, user.getEmail(), user.getName());
     }
 
     @Test
     public void errorLoginWithWrongEmail() {
         var authdata = AuthData.wrongEmail(user);
-        ValidatableResponse loginWithWrongEmail = client.loginUser(authdata);
+        ValidatableResponse loginWithWrongEmail = UserClient.loginUser(authdata);
         check.assertErrorLoginUserWithWrongData(loginWithWrongEmail);
     }
 
     @Test
     public void errorLoginWithWrongPassword() {
         var authdata = AuthData.wrongPassword(user);
-        ValidatableResponse loginWithWrongPassword = client.loginUser(authdata);
+        ValidatableResponse loginWithWrongPassword = UserClient.loginUser(authdata);
         check.assertErrorLoginUserWithWrongData(loginWithWrongPassword);
     }
 
     @Test
     public void errorLoginWithWrongEmailAndPassword() {
         var authdata = AuthData.wrongEmailAndPassword();
-        ValidatableResponse loginWithWrongEmailAndPassword = client.loginUser(authdata);
+        ValidatableResponse loginWithWrongEmailAndPassword = UserClient.loginUser(authdata);
         check.assertErrorLoginUserWithWrongData(loginWithWrongEmailAndPassword);
     }
 
     @After
     public void deleteUser() {
-        if(accessToken != null) {
-            ValidatableResponse deleteUser = client.delete(accessToken);
-            check.assertUserDeleteSuccsessfully(deleteUser);
+        if (accessToken != null) {
+            ValidatableResponse deleteUser = UserClient.delete(accessToken);
+            UserChecks.assertUserDeleteSuccsessfully(deleteUser);
         }
     }
 }

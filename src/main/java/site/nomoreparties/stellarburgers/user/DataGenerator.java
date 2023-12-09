@@ -15,5 +15,7 @@ public class DataGenerator {
         return "Govard F.L." + RandomStringUtils.randomNumeric(5);
     }
 
-    public static String generateRandomPassword() {return "YAYA#yogsotot" + RandomStringUtils.randomNumeric(5);}
+    public static String generateRandomPassword() {
+        return "YAYA#yogsotot" + RandomStringUtils.randomNumeric(5);
+    }
 }

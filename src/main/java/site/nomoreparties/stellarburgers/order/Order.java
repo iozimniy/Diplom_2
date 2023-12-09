@@ -1,6 +1,5 @@
 package site.nomoreparties.stellarburgers.order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Order {

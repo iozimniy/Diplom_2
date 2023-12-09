@@ -45,7 +45,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
     }
 
     @Step("Delete Test Data")
-    public static ValidatableResponse delete (String accessToken) {
+    public static ValidatableResponse delete(String accessToken) {
         return specAuth(accessToken)
                 .when()
                 .delete(USER_PATH_DATA)

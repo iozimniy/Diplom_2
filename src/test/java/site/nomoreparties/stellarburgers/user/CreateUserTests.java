@@ -14,16 +14,16 @@ public class CreateUserTests {
     @Test
     public void createUserTest() {
         var user = UserGenerator.generateRandomUser();
-        ValidatableResponse response = client.createUser(user);
-        accessToken = check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
+        ValidatableResponse response = UserClient.createUser(user);
+        accessToken = UserChecks.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
     }
 
     @Test
     public void errorCreateUserBecauseAlreadyCreate() {
         var user = UserGenerator.generateRandomUser();
-        ValidatableResponse response = client.createUser(user);
-        accessToken = check.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
-        ValidatableResponse createAgain = client.createUser(user);
+        ValidatableResponse response = UserClient.createUser(user);
+        accessToken = UserChecks.assertUserCreateSuccessfully(response, user.getEmail(), user.getName());
+        ValidatableResponse createAgain = UserClient.createUser(user);
         check.assertErrorCreateUserBecauseAlreadyCreate(createAgain);
 
     }
@@ -31,29 +31,29 @@ public class CreateUserTests {
     @Test
     public void errorCreateWithoutEmail() {
         var user = UserGenerator.generateRandomWithoutEmail();
-        ValidatableResponse createWithoutEmail = client.createUser(user);
+        ValidatableResponse createWithoutEmail = UserClient.createUser(user);
         check.assertErrorCreateUserWithoutRequiredField(createWithoutEmail);
     }
 
     @Test
     public void errorCreateWithoutName() {
         var user = UserGenerator.generateRandomWithoutName();
-        ValidatableResponse createWithoutName = client.createUser(user);
+        ValidatableResponse createWithoutName = UserClient.createUser(user);
         check.assertErrorCreateUserWithoutRequiredField(createWithoutName);
     }
 
     @Test
     public void errorCreateWithoutPassword() {
         var user = UserGenerator.generateRandomWithoutPassword();
-        ValidatableResponse createWithoutPassword = client.createUser(user);
+        ValidatableResponse createWithoutPassword = UserClient.createUser(user);
         check.assertErrorCreateUserWithoutRequiredField(createWithoutPassword);
     }
 
     @After
     public void deleteUser() {
-        if(accessToken != null) {
-            ValidatableResponse deleteUser = client.delete(accessToken);
-            check.assertUserDeleteSuccsessfully(deleteUser);
+        if (accessToken != null) {
+            ValidatableResponse deleteUser = UserClient.delete(accessToken);
+            UserChecks.assertUserDeleteSuccsessfully(deleteUser);
         }
     }
 }
