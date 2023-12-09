@@ -38,6 +38,13 @@ public class LoginUserTests {
         check.assertErrorLoginUserWithWrongData(loginWithWrongPassword);
     }
 
+    @Test
+    public void errorLoginWithWrongEmailAndPassword() {
+        var authdata = AuthData.wrongEmailAndPassword();
+        ValidatableResponse loginWithWrongEmailAndPassword = client.loginUser(authdata);
+        check.assertErrorLoginUserWithWrongData(loginWithWrongEmailAndPassword);
+    }
+
     @After
     public void deleteUser() {
         if(accessToken != null) {

@@ -24,6 +24,10 @@ public class AuthData {
         return new AuthData(user.getEmail(), DataGenerator.generateRandomPassword());
     }
 
+    public static AuthData wrongEmailAndPassword() {
+        return new AuthData(DataGenerator.generateRandomEmail(), DataGenerator.generateRandomPassword());
+    }
+
     public String getEmail() {
         return email;
     }
