@@ -1,7 +1,5 @@
 package site.nomoreparties.stellarburgers.user;
 
-import org.apache.http.auth.Credentials;
-
 public class AuthData {
     private String email;
     private String password;
@@ -14,12 +12,12 @@ public class AuthData {
     public AuthData() {
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public static AuthData from(User user) {
         return new AuthData(user.getEmail(), user.getPassword());
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {

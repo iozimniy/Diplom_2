@@ -1,21 +1,28 @@
 package site.nomoreparties.stellarburgers.user;
 
-import org.junit.Test;
-
 import io.restassured.response.ValidatableResponse;
+import org.junit.After;
+import org.junit.Test;
 
 public class LoginUserTests {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
+    String accessToken;
 
     @Test
     public void loginUserTest() {
 
         var user = UserGenerator.generateRandomUser();
-        client.createUser(user);
+        UserClient.createUser(user);
 
         var authdata = AuthData.from(user);
-        ValidatableResponse login = client.loginUser(authdata);
-        check.accertUserLoginSuccessfully(login, user.getEmail(), user.getName());
+        ValidatableResponse login = UserClient.loginUser(authdata);
+        accessToken = check.accertUserLoginSuccessfully(login, user.getEmail(), user.getName());
+    }
+
+    @After
+    public void deleteUser() {
+        ValidatableResponse deleteUser = UserClient.delete(accessToken);
+        check.assertUserDeleteSuccsessfully(deleteUser);
     }
 }

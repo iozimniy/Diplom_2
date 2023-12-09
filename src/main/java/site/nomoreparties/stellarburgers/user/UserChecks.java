@@ -19,8 +19,7 @@ public class UserChecks {
                 .body("user.email", equalTo(email))
                 .body("user.name", equalTo(name))
                 .body("accessToken", notNullValue())
-                .body("refreshToken", notNullValue())
-        ;
+                .body("refreshToken", notNullValue());
     }
 
     @Step("Assert Login and Getting accessToken")
@@ -45,8 +44,7 @@ public class UserChecks {
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
                 .body("success", equalTo(true))
-                .body("user.email", equalTo(email))
-        ;
+                .body("user.email", equalTo(email));
     }
 
     public void assertChangeNameSuccessfully(ValidatableResponse response, String name) {
@@ -55,7 +53,13 @@ public class UserChecks {
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .and()
                 .body("success", equalTo(true))
-                .body("user.name", equalTo(name))
+                .body("user.name", equalTo(name));
+    }
+
+    public void assertUserDeleteSuccsessfully(ValidatableResponse response) {
+        ValidatableResponse deleteUser = response
+                .assertThat()
+                .statusCode(HttpURLConnection.HTTP_ACCEPTED)
                 ;
     }
 }

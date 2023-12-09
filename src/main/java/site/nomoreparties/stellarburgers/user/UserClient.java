@@ -6,7 +6,7 @@ import io.restassured.response.ValidatableResponse;
 public class UserClient extends site.nomoreparties.stellarburgers.Client {
     static final String USER_PATH_CREATE = "api/auth/register";
     static final String USER_PATH_LOGIN = "api/auth/login";
-    static final String USER_PATH_CHANGE_DATA = "api/auth/user";
+    static final String USER_PATH_DATA = "api/auth/user";
 
     @Step("Create user")
     public static ValidatableResponse createUser(User user) {
@@ -15,7 +15,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .when()
                 .post(USER_PATH_CREATE)
                 .then().log().all()
-        ;
+                ;
     }
 
     @Step("Login user")
@@ -25,7 +25,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .when()
                 .post(USER_PATH_LOGIN)
                 .then().log().all()
-        ;
+                ;
     }
 
     @Step("Change User Data")
@@ -33,8 +33,17 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
         return specAuth(accessToken)
                 .body(changeData)
                 .when()
-                .patch(USER_PATH_CHANGE_DATA)
+                .patch(USER_PATH_DATA)
                 .then().log().all()
-        ;
+                ;
+    }
+
+    @Step("Delete Test Data")
+    public static ValidatableResponse delete (String accessToken) {
+        return specAuth(accessToken)
+                .when()
+                .delete(USER_PATH_DATA)
+                .then().log().all()
+                ;
     }
 }
