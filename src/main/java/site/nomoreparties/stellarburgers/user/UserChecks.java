@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class UserChecks {
 
     @Step("Creare user and Getting accessToken")
-    public String assertUserCreateSuccessfully(ValidatableResponse response, String email, String name) {
+    public static String assertUserCreateSuccessfully(ValidatableResponse response, String email, String name) {
         String accessToken = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
@@ -27,7 +27,7 @@ public class UserChecks {
     }
 
     @Step("Assert Login and Getting accessToken")
-    public String accertUserLoginSuccessfully(ValidatableResponse response, String email, String name) {
+    public static String accertUserLoginSuccessfully(ValidatableResponse response, String email, String name) {
         String accessToken = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
@@ -70,7 +70,7 @@ public class UserChecks {
                 .body("user.name", equalTo(name));
     }
 
-    public void assertUserDeleteSuccsessfully(ValidatableResponse response) {
+    public static void assertUserDeleteSuccsessfully(ValidatableResponse response) {
         ValidatableResponse deleteUser = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_ACCEPTED);
