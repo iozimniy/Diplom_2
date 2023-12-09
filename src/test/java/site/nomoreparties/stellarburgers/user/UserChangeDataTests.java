@@ -42,6 +42,27 @@ public class UserChangeDataTests {
         check.assertChangeEmailAndNameSuccessfuly(changeUserEmailAndName, changeData.getEmail(), changeData.getName());
     }
 
+    @Test
+    public void errorChangeEmailWithoutAuth() {
+        ChangeData changeData = ChangeData.changeEmail(user);
+        ValidatableResponse changeEmailWithoutAuth = client.changeUserDataWithoutAuth(changeData);
+        check.assertErrorChangeDataWithoutAuth(changeEmailWithoutAuth);
+    }
+
+    @Test
+    public void errorChangeNameWithoutAuth() {
+        ChangeData changeData = ChangeData.changeName(user);
+        ValidatableResponse changeNameWithoutAuth = client.changeUserDataWithoutAuth(changeData);
+        check.assertErrorChangeDataWithoutAuth(changeNameWithoutAuth);
+    }
+
+    @Test
+    public void errorChangeEmailAndNameWithoutAuth() {
+        ChangeData changeData = ChangeData.changeEmailAndName();
+        ValidatableResponse changeEmailAndNameWithoutAuth = client.changeUserDataWithoutAuth(changeData);
+        check.assertErrorChangeDataWithoutAuth(changeEmailAndNameWithoutAuth);
+    }
+
     @After
     public void deleteUser() {
         ValidatableResponse deleteUser = UserClient.delete(accessToken);

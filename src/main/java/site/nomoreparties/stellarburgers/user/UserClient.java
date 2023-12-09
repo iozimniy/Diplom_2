@@ -35,6 +35,15 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
+    @Step("Change user data without auth")
+    public static ValidatableResponse changeUserDataWithoutAuth(ChangeData changeData) {
+        return spec()
+                .body(changeData)
+                .when()
+                .patch(USER_PATH_DATA)
+                .then().log().all();
+    }
+
     @Step("Delete Test Data")
     public static ValidatableResponse delete (String accessToken) {
         return specAuth(accessToken)

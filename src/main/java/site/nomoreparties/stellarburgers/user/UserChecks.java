@@ -80,6 +80,7 @@ public class UserChecks {
         ValidatableResponse createAgain = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_FORBIDDEN)
+                .and()
                 .body("success", equalTo(false))
                 .body("message", equalTo("User already exists"));
     }
@@ -88,6 +89,7 @@ public class UserChecks {
         ValidatableResponse createWithoutRequiredField = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_FORBIDDEN)
+                .and()
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
@@ -96,7 +98,17 @@ public class UserChecks {
         ValidatableResponse loginWithWrongData = response
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_UNAUTHORIZED)
+                .and()
                 .body("success", equalTo(false))
                 .body("message", equalTo("email or password are incorrect"));
+    }
+
+    public void assertErrorChangeDataWithoutAuth(ValidatableResponse response) {
+        ValidatableResponse changeDataWithoutAuth = response
+                .assertThat()
+                .statusCode(HttpURLConnection.HTTP_UNAUTHORIZED)
+                .and()
+                .body("success", equalTo(false))
+                .body("message", equalTo("You should be authorised"));
     }
 }
