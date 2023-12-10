@@ -7,7 +7,7 @@ public class OrderClient extends site.nomoreparties.stellarburgers.Client {
 
     static final String ORDER = "api/orders";
 
-    @Step("Creare order with auth")
+    @Step("Создание заказа авторизованным пользователем")
     public static ValidatableResponse createOrderWithAuth(Order order, String accessToken) {
         return specAuth(accessToken)
                 .body(order)
@@ -16,7 +16,7 @@ public class OrderClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Create order without auth")
+    @Step("Создание заказа неавторизованным пользователем")
     public static ValidatableResponse createOrderWithoutAuth(Order order) {
         return spec()
                 .body(order)
@@ -25,7 +25,7 @@ public class OrderClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Get user's orders with auth")
+    @Step("Получение заказов авторизованного пользователя")
     public static ValidatableResponse getUsersOrdersWithAuth(String accessToken) {
         return specAuth(accessToken)
                 .when()
@@ -33,7 +33,7 @@ public class OrderClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Get user's orders without auth")
+    @Step("Получение заказазов пользователя без авторизации")
     public static ValidatableResponse getUsersOrdersWithoutAuth() {
         return spec()
                 .when()

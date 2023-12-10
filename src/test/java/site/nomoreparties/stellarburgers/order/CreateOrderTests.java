@@ -1,5 +1,6 @@
 package site.nomoreparties.stellarburgers.order;
 
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +23,9 @@ public class CreateOrderTests {
         UserClient.loginUser(authdata);
     }
 
+
     @Test
+    @DisplayName("Создание заказа с ингредиентами")
     public void createOrderWithIngredient() {
         var order = OrderGenerator.orderWithIngredient();
         ValidatableResponse orderWithIngredient = OrderClient.createOrderWithAuth(order, accessToken);
@@ -30,6 +33,7 @@ public class CreateOrderTests {
     }
 
     @Test
+    @DisplayName("Создание заказа без ингредиентов")
     public void errorCreateOrderWithoutIngredients() {
         var order = OrderGenerator.orderWithoutIngredients();
         ValidatableResponse orderWithoutIngredients = OrderClient.createOrderWithAuth(order, accessToken);
@@ -37,6 +41,7 @@ public class CreateOrderTests {
     }
 
     @Test
+    @DisplayName("Создание заказа с неправальным хешем ингредиентов")
     public void errorCreateOrderWithWrongIngredient() {
         var order = OrderGenerator.orderWithWrongIngredient();
         ValidatableResponse orderWithWrongIngredient = OrderClient.createOrderWithAuth(order, accessToken);
@@ -44,6 +49,7 @@ public class CreateOrderTests {
     }
 
     @Test
+    @DisplayName("Создание заказа без авторизации")
     public void createOrderWithoutAuth() {
         var order = OrderGenerator.orderWithIngredient();
         ValidatableResponse orderWithOutAuth = OrderClient.createOrderWithoutAuth(order);

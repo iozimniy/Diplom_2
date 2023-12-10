@@ -1,6 +1,8 @@
 package site.nomoreparties.stellarburgers.user;
 
 
+import io.qameta.allure.Step;
+
 public class ChangeData {
     private String name;
     private String email;
@@ -13,14 +15,17 @@ public class ChangeData {
         this.email = email;
     }
 
+    @Step("Создание данных для изменения почты")
     public static ChangeData changeEmail(User user) {
         return new ChangeData(user.getName(), DataGenerator.generateRandomEmail());
     }
 
+    @Step("Создание данных для изменение имени")
     public static ChangeData changeName(User user) {
         return new ChangeData(DataGenerator.generateRandomName(), user.getEmail());
     }
 
+    @Step("Создание данных для изменения почты и имени")
     public static ChangeData changeEmailAndName() {
         return new ChangeData(DataGenerator.generateRandomName(), DataGenerator.generateRandomEmail());
     }

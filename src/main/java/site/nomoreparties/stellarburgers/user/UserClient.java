@@ -8,7 +8,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
     static final String USER_PATH_LOGIN = "api/auth/login";
     static final String USER_PATH_DATA = "api/auth/user";
 
-    @Step("Create user")
+    @Step("Создание пользователя")
     public static ValidatableResponse createUser(User user) {
         return spec()
                 .body(user)
@@ -17,7 +17,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Login user")
+    @Step("Авторизация пользователя")
     public static ValidatableResponse loginUser(AuthData authdata) {
         return spec()
                 .body(authdata)
@@ -26,7 +26,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Change User Data")
+    @Step("Изменяем данные пользователя")
     public static ValidatableResponse changeUserData(ChangeData changeData, String accessToken) {
         return specAuth(accessToken)
                 .body(changeData)
@@ -35,7 +35,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Change user data without auth")
+    @Step("Меняем данные пользователя без авторизации")
     public static ValidatableResponse changeUserDataWithoutAuth(ChangeData changeData) {
         return spec()
                 .body(changeData)
@@ -44,7 +44,7 @@ public class UserClient extends site.nomoreparties.stellarburgers.Client {
                 .then().log().all();
     }
 
-    @Step("Delete Test Data")
+    @Step("Удаляем тестового пользователя")
     public static ValidatableResponse delete(String accessToken) {
         return specAuth(accessToken)
                 .when()
