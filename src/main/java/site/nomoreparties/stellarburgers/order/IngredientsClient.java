@@ -1,7 +1,5 @@
 package site.nomoreparties.stellarburgers.order;
 
-import io.qameta.allure.Step;
-
 public class IngredientsClient extends site.nomoreparties.stellarburgers.Client {
     static final String INGREDIENTS = "api/ingredients";
 

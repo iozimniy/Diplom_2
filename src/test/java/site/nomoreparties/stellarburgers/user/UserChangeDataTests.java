@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class UserChangeDataTests {
-    private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     private final User user = UserGenerator.generateRandomUser();
     private String accessToken;

@@ -8,8 +8,6 @@ import org.junit.Test;
 import site.nomoreparties.stellarburgers.user.*;
 
 public class GetUserOrdersTests {
-
-    private final OrderClient client = new OrderClient();
     private final OrderChecks checks = new OrderChecks();
     private String accessToken;
 
@@ -24,6 +22,7 @@ public class GetUserOrdersTests {
 
         var order = OrderGenerator.orderWithIngredient();
         ValidatableResponse orderWithIngredient = OrderClient.createOrderWithAuth(order, accessToken);
+        checks.createOrderSuccessfully(orderWithIngredient);
     }
 
     @Test

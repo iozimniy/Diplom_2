@@ -8,8 +8,6 @@ import org.junit.Test;
 import site.nomoreparties.stellarburgers.user.*;
 
 public class CreateOrderTests {
-
-    private final OrderClient client = new OrderClient();
     private final OrderChecks checks = new OrderChecks();
     private String accessToken;
 

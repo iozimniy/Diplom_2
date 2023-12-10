@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LoginUserTests {
-    private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     String accessToken;
     private User user;

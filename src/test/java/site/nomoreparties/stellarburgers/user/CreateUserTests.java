@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Test;
 
 public class CreateUserTests {
-
-    private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     private String accessToken;
 
